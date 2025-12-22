@@ -15,7 +15,7 @@ export class AuthorsController {
 
   @Get()
   findAll() {
-    return this.authorsService.findAll();
+    return { authors: this.authorsService.findAll() };
   }
 
   @Get(':id')
@@ -25,7 +25,7 @@ export class AuthorsController {
 
   @Post()
   create(@Body() author: { name: string; email: string }) {
-    return author;
+    return this.authorsService.create(author);
   }
 
   @Patch(':id')

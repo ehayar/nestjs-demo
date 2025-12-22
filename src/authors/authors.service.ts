@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { BooksService } from 'src/books/books.service';
 
 @Injectable()
 export class AuthorsService {
@@ -20,8 +19,6 @@ export class AuthorsService {
       email: 'mark.twain@example.com',
     },
   ];
-
-  constructor(private readonly booksService: BooksService) {}
 
   findAll() {
     return this.authors;

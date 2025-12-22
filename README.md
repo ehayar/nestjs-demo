@@ -6,7 +6,7 @@ Please note this was created on a windows PC, while running on WSL2. Keep that i
 
 ### Prerequisites
 
-This demo assumes you've already setup your development environment following the prisma demo repo (node, npm, etc).
+This demo assumes you've already setup your development environment following the prisma demo repo (node, npm, etc). You will need at least Node 20+ to run this project.
 
 One additional requirement is the NestJS CLI. If you don't have it installed, you can do so via npm:
 
@@ -46,6 +46,22 @@ nest generate controller some-module-name
 2. Support a publishers module (a book has a single publisher).
 3. Support a genres module (a book can have multiple genres). **NOTE:** be careful how you handle this to avoid duplicating data - you only want to store either books inside genres, or genres inside books, not both. **NOTE Number 2:** this isn't ideal and you wouldn't have to do this with a real database, this is just for the purpose of this demo.
 
-**Bonus Points:** add an endpoint that returns all books for a given author id (e.g. `GET /authors/:id/books`), hint: I've already injected the books service into the authors service for you to make this easier - this can done easily in the books service by filtering the books by author id but for the sake of the exercise, try to do it in the authors service.
+**Bonus Points:** add a query param to the books GET endpoint called `includeAuthor` which when set to true will include the author details in the response. So a request to `/books?includeAuthor=true` would return something like:
+
+```json
+[
+  {
+    "id": 1,
+    "title": "Book Title",
+    "author": {
+      "id": 1,
+      "name": "Author Name"
+    }
+  }
+]
+```
+
+Hint: you'll need to make use of the `@Query` decorator, I've already injected the AuthorsService into the BooksService for you to make this easier.
+
 **Extra Bonus Points:** use [pipes](https://docs.nestjs.com/pipes) to validate id params as integers
 **More Extra Bonus Points:** add swagger to your endpoints - see [here](https://docs.nestjs.com/openapi/introduction) for more info
